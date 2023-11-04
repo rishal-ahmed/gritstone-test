@@ -22,10 +22,18 @@ class MessageDatabase {
     return message!;
   }
 
-  //? ==--==--==--==-- Delete Message --==--==--==--==
-  Future<void> deleteMessage(MessageModel message) async {
+  //! ==--==--==--==-- Delete Message --==--==--==--==
+  Future<void> deleteMessage({required int index}) async {
     Box<MessageModel> messagesBox =
         await Hive.openBox<MessageModel>('messageBox');
-    await messagesBox.delete(message);
+    await messagesBox.deleteAt(index);
+  }
+
+  //! ==--==--==--==-- Delete All Messages --==--==--==--==
+  Future<void> get deleteAllMessages async {
+    Box<MessageModel> messagesBox =
+        await Hive.openBox<MessageModel>('messageBox');
+
+    await messagesBox.deleteFromDisk();
   }
 }

@@ -20,18 +20,24 @@ mixin _$MessageEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() messages,
     required TResult Function(MessageModel message) addMessage,
+    required TResult Function() deleteAllMessages,
+    required TResult Function(int index) deleteMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? messages,
     TResult? Function(MessageModel message)? addMessage,
+    TResult? Function()? deleteAllMessages,
+    TResult? Function(int index)? deleteMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? messages,
     TResult Function(MessageModel message)? addMessage,
+    TResult Function()? deleteAllMessages,
+    TResult Function(int index)? deleteMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +45,24 @@ mixin _$MessageEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_MessageEvent value) messages,
     required TResult Function(_MessageEventAdd value) addMessage,
+    required TResult Function(_MessageEventDeleteAll value) deleteAllMessages,
+    required TResult Function(_MessageEventDelete value) deleteMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MessageEvent value)? messages,
     TResult? Function(_MessageEventAdd value)? addMessage,
+    TResult? Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult? Function(_MessageEventDelete value)? deleteMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MessageEvent value)? messages,
     TResult Function(_MessageEventAdd value)? addMessage,
+    TResult Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult Function(_MessageEventDelete value)? deleteMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +126,8 @@ class _$MessageEventImpl implements _MessageEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() messages,
     required TResult Function(MessageModel message) addMessage,
+    required TResult Function() deleteAllMessages,
+    required TResult Function(int index) deleteMessage,
   }) {
     return messages();
   }
@@ -123,6 +137,8 @@ class _$MessageEventImpl implements _MessageEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? messages,
     TResult? Function(MessageModel message)? addMessage,
+    TResult? Function()? deleteAllMessages,
+    TResult? Function(int index)? deleteMessage,
   }) {
     return messages?.call();
   }
@@ -132,6 +148,8 @@ class _$MessageEventImpl implements _MessageEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? messages,
     TResult Function(MessageModel message)? addMessage,
+    TResult Function()? deleteAllMessages,
+    TResult Function(int index)? deleteMessage,
     required TResult orElse(),
   }) {
     if (messages != null) {
@@ -145,6 +163,8 @@ class _$MessageEventImpl implements _MessageEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_MessageEvent value) messages,
     required TResult Function(_MessageEventAdd value) addMessage,
+    required TResult Function(_MessageEventDeleteAll value) deleteAllMessages,
+    required TResult Function(_MessageEventDelete value) deleteMessage,
   }) {
     return messages(this);
   }
@@ -154,6 +174,8 @@ class _$MessageEventImpl implements _MessageEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MessageEvent value)? messages,
     TResult? Function(_MessageEventAdd value)? addMessage,
+    TResult? Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult? Function(_MessageEventDelete value)? deleteMessage,
   }) {
     return messages?.call(this);
   }
@@ -163,6 +185,8 @@ class _$MessageEventImpl implements _MessageEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MessageEvent value)? messages,
     TResult Function(_MessageEventAdd value)? addMessage,
+    TResult Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult Function(_MessageEventDelete value)? deleteMessage,
     required TResult orElse(),
   }) {
     if (messages != null) {
@@ -243,6 +267,8 @@ class _$MessageEventAddImpl implements _MessageEventAdd {
   TResult when<TResult extends Object?>({
     required TResult Function() messages,
     required TResult Function(MessageModel message) addMessage,
+    required TResult Function() deleteAllMessages,
+    required TResult Function(int index) deleteMessage,
   }) {
     return addMessage(message);
   }
@@ -252,6 +278,8 @@ class _$MessageEventAddImpl implements _MessageEventAdd {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? messages,
     TResult? Function(MessageModel message)? addMessage,
+    TResult? Function()? deleteAllMessages,
+    TResult? Function(int index)? deleteMessage,
   }) {
     return addMessage?.call(message);
   }
@@ -261,6 +289,8 @@ class _$MessageEventAddImpl implements _MessageEventAdd {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? messages,
     TResult Function(MessageModel message)? addMessage,
+    TResult Function()? deleteAllMessages,
+    TResult Function(int index)? deleteMessage,
     required TResult orElse(),
   }) {
     if (addMessage != null) {
@@ -274,6 +304,8 @@ class _$MessageEventAddImpl implements _MessageEventAdd {
   TResult map<TResult extends Object?>({
     required TResult Function(_MessageEvent value) messages,
     required TResult Function(_MessageEventAdd value) addMessage,
+    required TResult Function(_MessageEventDeleteAll value) deleteAllMessages,
+    required TResult Function(_MessageEventDelete value) deleteMessage,
   }) {
     return addMessage(this);
   }
@@ -283,6 +315,8 @@ class _$MessageEventAddImpl implements _MessageEventAdd {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_MessageEvent value)? messages,
     TResult? Function(_MessageEventAdd value)? addMessage,
+    TResult? Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult? Function(_MessageEventDelete value)? deleteMessage,
   }) {
     return addMessage?.call(this);
   }
@@ -292,6 +326,8 @@ class _$MessageEventAddImpl implements _MessageEventAdd {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_MessageEvent value)? messages,
     TResult Function(_MessageEventAdd value)? addMessage,
+    TResult Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult Function(_MessageEventDelete value)? deleteMessage,
     required TResult orElse(),
   }) {
     if (addMessage != null) {
@@ -308,5 +344,268 @@ abstract class _MessageEventAdd implements MessageEvent {
   MessageModel get message;
   @JsonKey(ignore: true)
   _$$MessageEventAddImplCopyWith<_$MessageEventAddImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MessageEventDeleteAllImplCopyWith<$Res> {
+  factory _$$MessageEventDeleteAllImplCopyWith(
+          _$MessageEventDeleteAllImpl value,
+          $Res Function(_$MessageEventDeleteAllImpl) then) =
+      __$$MessageEventDeleteAllImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MessageEventDeleteAllImplCopyWithImpl<$Res>
+    extends _$MessageEventCopyWithImpl<$Res, _$MessageEventDeleteAllImpl>
+    implements _$$MessageEventDeleteAllImplCopyWith<$Res> {
+  __$$MessageEventDeleteAllImplCopyWithImpl(_$MessageEventDeleteAllImpl _value,
+      $Res Function(_$MessageEventDeleteAllImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MessageEventDeleteAllImpl implements _MessageEventDeleteAll {
+  const _$MessageEventDeleteAllImpl();
+
+  @override
+  String toString() {
+    return 'MessageEvent.deleteAllMessages()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MessageEventDeleteAllImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() messages,
+    required TResult Function(MessageModel message) addMessage,
+    required TResult Function() deleteAllMessages,
+    required TResult Function(int index) deleteMessage,
+  }) {
+    return deleteAllMessages();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? messages,
+    TResult? Function(MessageModel message)? addMessage,
+    TResult? Function()? deleteAllMessages,
+    TResult? Function(int index)? deleteMessage,
+  }) {
+    return deleteAllMessages?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? messages,
+    TResult Function(MessageModel message)? addMessage,
+    TResult Function()? deleteAllMessages,
+    TResult Function(int index)? deleteMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteAllMessages != null) {
+      return deleteAllMessages();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MessageEvent value) messages,
+    required TResult Function(_MessageEventAdd value) addMessage,
+    required TResult Function(_MessageEventDeleteAll value) deleteAllMessages,
+    required TResult Function(_MessageEventDelete value) deleteMessage,
+  }) {
+    return deleteAllMessages(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MessageEvent value)? messages,
+    TResult? Function(_MessageEventAdd value)? addMessage,
+    TResult? Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult? Function(_MessageEventDelete value)? deleteMessage,
+  }) {
+    return deleteAllMessages?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MessageEvent value)? messages,
+    TResult Function(_MessageEventAdd value)? addMessage,
+    TResult Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult Function(_MessageEventDelete value)? deleteMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteAllMessages != null) {
+      return deleteAllMessages(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MessageEventDeleteAll implements MessageEvent {
+  const factory _MessageEventDeleteAll() = _$MessageEventDeleteAllImpl;
+}
+
+/// @nodoc
+abstract class _$$MessageEventDeleteImplCopyWith<$Res> {
+  factory _$$MessageEventDeleteImplCopyWith(_$MessageEventDeleteImpl value,
+          $Res Function(_$MessageEventDeleteImpl) then) =
+      __$$MessageEventDeleteImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$MessageEventDeleteImplCopyWithImpl<$Res>
+    extends _$MessageEventCopyWithImpl<$Res, _$MessageEventDeleteImpl>
+    implements _$$MessageEventDeleteImplCopyWith<$Res> {
+  __$$MessageEventDeleteImplCopyWithImpl(_$MessageEventDeleteImpl _value,
+      $Res Function(_$MessageEventDeleteImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$MessageEventDeleteImpl(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MessageEventDeleteImpl implements _MessageEventDelete {
+  const _$MessageEventDeleteImpl({required this.index});
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'MessageEvent.deleteMessage(index: $index)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MessageEventDeleteImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MessageEventDeleteImplCopyWith<_$MessageEventDeleteImpl> get copyWith =>
+      __$$MessageEventDeleteImplCopyWithImpl<_$MessageEventDeleteImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() messages,
+    required TResult Function(MessageModel message) addMessage,
+    required TResult Function() deleteAllMessages,
+    required TResult Function(int index) deleteMessage,
+  }) {
+    return deleteMessage(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? messages,
+    TResult? Function(MessageModel message)? addMessage,
+    TResult? Function()? deleteAllMessages,
+    TResult? Function(int index)? deleteMessage,
+  }) {
+    return deleteMessage?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? messages,
+    TResult Function(MessageModel message)? addMessage,
+    TResult Function()? deleteAllMessages,
+    TResult Function(int index)? deleteMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteMessage != null) {
+      return deleteMessage(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MessageEvent value) messages,
+    required TResult Function(_MessageEventAdd value) addMessage,
+    required TResult Function(_MessageEventDeleteAll value) deleteAllMessages,
+    required TResult Function(_MessageEventDelete value) deleteMessage,
+  }) {
+    return deleteMessage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MessageEvent value)? messages,
+    TResult? Function(_MessageEventAdd value)? addMessage,
+    TResult? Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult? Function(_MessageEventDelete value)? deleteMessage,
+  }) {
+    return deleteMessage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MessageEvent value)? messages,
+    TResult Function(_MessageEventAdd value)? addMessage,
+    TResult Function(_MessageEventDeleteAll value)? deleteAllMessages,
+    TResult Function(_MessageEventDelete value)? deleteMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteMessage != null) {
+      return deleteMessage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MessageEventDelete implements MessageEvent {
+  const factory _MessageEventDelete({required final int index}) =
+      _$MessageEventDeleteImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$MessageEventDeleteImplCopyWith<_$MessageEventDeleteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

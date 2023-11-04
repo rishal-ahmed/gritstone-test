@@ -10,9 +10,12 @@ import 'package:gritstone_test/core/constant/sizes.dart';
 import 'package:gritstone_test/domain/models/message/message_model.dart';
 import 'package:gritstone_test/domain/provider/message/message_provider.dart';
 import 'package:gritstone_test/domain/utils/converter/converter_utils.dart';
+import 'package:gritstone_test/domain/utils/text/text_utils.dart';
 import 'package:gritstone_test/domain/utils/validator/validator_utils.dart';
 import 'package:gritstone_test/presentation/screens/home/widgets/message_widget.dart';
 import 'package:gritstone_test/presentation/widgets/appbar/appbar.dart';
+import 'package:gritstone_test/presentation/widgets/dialogs/alert_dialog_custom.dart';
+import 'package:gritstone_test/presentation/widgets/snackbar/snackbar.dart';
 import 'package:gritstone_test/presentation/widgets/text_fields/text_field_widget.dart';
 
 class ScreenHome extends ConsumerWidget {
@@ -26,9 +29,45 @@ class ScreenHome extends ConsumerWidget {
         title: appName,
         actions: [
           //* ==--==--==-- Clear All ~ Button --==--==--==
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.clear_all),
+          Consumer(
+            builder: (_, WidgetRef ref, __) {
+              //* ~~~~~~ Messages ~ State ~~~~~~
+              final MessageState state = ref.watch(MessageProvider.messages);
+              return Semantics(
+                button: true,
+                label: 'Delete all notes',
+                child: IconButton(
+                  onPressed: () {
+                    if (state.messages.isEmpty) return;
+
+                    kAlertDialog(
+                      content: 'Are you sure you want to delete all messages?',
+                      submitText: 'Confirm',
+                      submitColor: kColorStateCritical,
+                      submitAction: () {
+                        Navigator.pop(context);
+
+                        kSnackBar(
+                          content: 'All messages deleted successfully',
+                          success: true,
+                        );
+
+                        //! >><<>><< Delete all messages ~ Event >><<>><<
+                        ref
+                            .read(MessageProvider.messages.notifier)
+                            .emit(const MessageEvent.deleteAllMessages());
+                      },
+                    );
+                  },
+                  tooltip: 'Delete all notes',
+                  icon: const Icon(
+                    Icons.clear_all,
+                    size: 25,
+                    color: kWhite,
+                  ),
+                ),
+              );
+            },
           )
         ],
       ),
@@ -38,33 +77,46 @@ class ScreenHome extends ConsumerWidget {
           child: Column(
             children: [
               //* ==--==--==--==-- Messages --==--==--==--==
-              Consumer(
-                builder: (_, WidgetRef ref, __) {
-                  //* ~~~~~~ Messages ~ State ~~~~~~
-                  final MessageState state =
-                      ref.watch(MessageProvider.messages);
+              Expanded(
+                child: Consumer(
+                  builder: (_, WidgetRef ref, __) {
+                    //* ~~~~~~ Messages ~ State ~~~~~~
+                    final MessageState state =
+                        ref.watch(MessageProvider.messages);
 
-                  // Loading..
-                  if (state.isLoading) {
-                    return const Center(
-                        child: CircularProgressIndicator.adaptive());
-                  }
+                    //? Loading..
+                    if (state.isLoading) {
+                      return const Center(
+                          child: CircularProgressIndicator.adaptive());
+                    }
 
-                  return Expanded(
-                    child: ListView.separated(
+                    //? Empty
+                    if (state.messages.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'No recent messages',
+                          textAlign: TextAlign.center,
+                          style: TextUtils.theme(context).bodyLarge?.copyWith(
+                                color: kColorLight3,
+                              ),
+                        ),
+                      );
+                    }
+
+                    return ListView.separated(
                       itemBuilder: (context, index) {
                         final MessageModel message = state.messages[index];
 
                         //* ==--==-- Message Widget --==--==
-                        return MessageWidget(message: message);
+                        return MessageWidget(message: message, index: index);
                       },
                       separatorBuilder: (context, index) {
                         return kHeight10;
                       },
                       itemCount: state.messages.length,
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
               kHeight15,
 
@@ -73,6 +125,7 @@ class ScreenHome extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
+                      //* ==--==--==-- Message ~ Field --==--==--==
                       Expanded(
                         child: Consumer(
                           builder: (_, WidgetRef ref, __) {
@@ -91,7 +144,7 @@ class ScreenHome extends ConsumerWidget {
                         ),
                       ),
                       kWidth10,
-                      //* ==--==--==-- Message ~ Field --==--==--==
+                      //* ==--==--==-- Send ~ Button --==--==--==
                       InkWell(
                         onTap: () {
                           //* -- Form State --
@@ -110,12 +163,14 @@ class ScreenHome extends ConsumerWidget {
                             log('Message: $message');
                             log('Date Time: ${ConverterUtils().dateTimeFormatAmPm.format(dateTime)}');
 
-                            //! >><<>><< Delete Cart Local ~ Event >><<>><<
+                            //! >><<>><< Add message ~ Event >><<>><<
                             ref.read(MessageProvider.messages.notifier).emit(
                                 MessageEvent.addMessage(message: messageModel));
+
+                            /// Clear message after successfully send.
+                            ref.read(MessageProvider.messageController).clear();
                           }
                         },
-                        //* ==--==--==-- Send ~ Button --==--==--==
                         child: const CircleAvatar(
                           radius: 20,
                           backgroundColor: kBlack45,

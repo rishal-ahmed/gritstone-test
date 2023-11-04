@@ -11,4 +11,11 @@ class MessageEvent with _$MessageEvent {
   //* =-=-=-=-=- Add Message -=-=-=-=-=
   const factory MessageEvent.addMessage({required MessageModel message}) =
       _MessageEventAdd;
+
+  //! =-=-=-=-=- Delete All Messages -=-=-=-=-=
+  const factory MessageEvent.deleteAllMessages() = _MessageEventDeleteAll;
+
+  //! =-=-=-=-=- Delete Messages -=-=-=-=-=
+  const factory MessageEvent.deleteMessage({required int index}) =
+      _MessageEventDelete;
 }

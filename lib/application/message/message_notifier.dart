@@ -24,7 +24,7 @@ class MessageNotifier extends StateNotifier<MessageState> {
         state = initialState.copyWith(messages: messages, status: true);
       },
 
-      //? =-=-=-=-=-=-=-=- Contact Us ~ Event -=-=-=-=-=-=-=-=
+      //? =-=-=-=-=-=-=-=- Add Message ~ Event -=-=-=-=-=-=-=-=
       addMessage: (event) async {
         // Loading
         // state = state.copyWith(isLoading: true);
@@ -36,6 +36,36 @@ class MessageNotifier extends StateNotifier<MessageState> {
         // Notify UI
         state = initialState
             .copyWith(status: true, messages: [...state.messages, message]);
+      },
+
+      //! =-=-=-=-=-=-=-=- Delete All Messages ~ Event -=-=-=-=-=-=-=-=
+      deleteAllMessages: (event) async {
+        // Loading
+        // state = state.copyWith(isLoading: true);
+
+        // Api Call
+        await MessageDatabase().deleteAllMessages;
+
+        // Notify UI
+        state = initialState.copyWith(status: true);
+      },
+
+      //! =-=-=-=-=-=-=-=- Delete Message ~ Event -=-=-=-=-=-=-=-=
+      deleteMessage: (event) async {
+        // Loading
+        // state = state.copyWith(isLoading: true);
+
+        // Api Call
+        await MessageDatabase().deleteMessage(index: event.index);
+
+        // -- Messages
+        final List<MessageModel> messages = List.from(state.messages);
+
+        // Removing deleted message item from messages.
+        messages.removeAt(event.index);
+
+        // Notify UI
+        state = state.copyWith(status: true, messages: messages);
       },
     );
   }
