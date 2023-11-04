@@ -61,7 +61,7 @@ const Color kColorDim2 = Color(0XFF888888);
 const Color kOffWhite = Color(0XFFF1F1F1);
 const Color kOffWhite2 = Color(0XFFFAF9F6);
 
-const Color kBlack5 = Color(0x0D000000);
+const Color kBlack05 = Color(0x0D000000);
 const Color kBlack10 = Color(0x1A000000);
 const Color kBlack12 = Colors.black12;
 const Color kBlack26 = Colors.black26;
