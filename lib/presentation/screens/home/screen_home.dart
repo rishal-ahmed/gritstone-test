@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gritstone_test/application/message/message_event.dart';
@@ -9,6 +11,7 @@ import 'package:gritstone_test/core/constant/names.dart';
 import 'package:gritstone_test/core/constant/sizes.dart';
 import 'package:gritstone_test/domain/models/message/message_model.dart';
 import 'package:gritstone_test/domain/provider/message/message_provider.dart';
+import 'package:gritstone_test/domain/utils/accessibility/accessibility_utils.dart';
 import 'package:gritstone_test/domain/utils/converter/converter_utils.dart';
 import 'package:gritstone_test/domain/utils/text/text_utils.dart';
 import 'package:gritstone_test/domain/utils/validator/validator_utils.dart';
@@ -73,126 +76,225 @@ class ScreenHome extends ConsumerWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              //* ==--==--==--==-- Messages --==--==--==--==
-              Expanded(
-                child: Consumer(
-                  builder: (_, WidgetRef ref, __) {
-                    //* ~~~~~~ Messages ~ State ~~~~~~
-                    final MessageState state =
-                        ref.watch(MessageProvider.messages);
+              Consumer(
+                builder: (context, ref, _) {
+                  //* ~~~~~~ Listening ~ State ~~~~~~
+                  final bool isListening =
+                      ref.watch(MessageProvider.isListening);
 
-                    //? Loading..
-                    if (state.isLoading) {
-                      return const Center(
-                          child: CircularProgressIndicator.adaptive());
-                    }
+                  if (!isListening) {
+                    return Expanded(
+                      child: Column(
+                        children: [
+                          //* ==--==--==--==-- Messages --==--==--==--==
+                          Expanded(
+                            child: Consumer(
+                              builder: (_, WidgetRef ref, __) {
+                                //* ~~~~~~ Messages ~ State ~~~~~~
+                                final MessageState state =
+                                    ref.watch(MessageProvider.messages);
 
-                    //? Empty
-                    if (state.messages.isEmpty) {
-                      return Center(
-                        child: Text(
-                          'No recent messages',
-                          textAlign: TextAlign.center,
-                          style: TextUtils.theme(context).bodyLarge?.copyWith(
-                                color: kColorLight3,
-                              ),
-                        ),
-                      );
-                    }
+                                //? Loading..
+                                if (state.isLoading) {
+                                  return const Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive());
+                                }
 
-                    return ListView.separated(
-                      itemBuilder: (context, index) {
-                        final MessageModel message = state.messages[index];
+                                //? Empty
+                                if (state.messages.isEmpty) {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Text(
+                                        'No recent messages',
+                                        textAlign: TextAlign.center,
+                                        style: TextUtils.theme(context)
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              color: kColorLight3,
+                                            ),
+                                      ),
+                                    ),
+                                  );
+                                }
 
-                        //* ==--==-- Message Widget --==--==
-                        return MessageWidget(message: message, index: index);
-                      },
-                      separatorBuilder: (context, index) {
-                        return kHeight10;
-                      },
-                      itemCount: state.messages.length,
+                                return ListView.separated(
+                                  itemBuilder: (context, index) {
+                                    final MessageModel message =
+                                        state.messages[index];
+
+                                    //* ==--==-- Message Widget --==--==
+                                    return MessageWidget(
+                                        message: message, index: index);
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return kHeight10;
+                                  },
+                                  itemCount: state.messages.length,
+                                );
+                              },
+                            ),
+                          ),
+                          kHeight15,
+                        ],
+                      ),
                     );
-                  },
-                ),
+                  } else {
+                    //* ==--==--==-- Voice Recognition ~ Text --==--==--==
+                    return Consumer(
+                      builder: (_, WidgetRef ref, __) {
+                        //* ~~~~~~ Recogninzed Value ~ State ~~~~~~
+                        final String value =
+                            ref.watch(MessageProvider.recognizedValue);
+                        return Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.center,
+                              style: TextUtils.theme(context)
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    color: kBlack,
+                                  ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
               ),
-              kHeight15,
 
               //* ==--==--==--==-- Type/Voice Fields --==--==--==--==
-              Column(
-                children: [
-                  Row(
+              Consumer(
+                builder: (_, WidgetRef ref, __) {
+                  //* ~~~~~~ Listening ~ State ~~~~~~
+                  final bool isListening =
+                      ref.watch(MessageProvider.isListening);
+                  return Column(
                     children: [
-                      //* ==--==--==-- Message ~ Field --==--==--==
-                      Expanded(
-                        child: Consumer(
-                          builder: (_, WidgetRef ref, __) {
-                            return Form(
-                              key: ref.watch(MessageProvider.formKey),
-                              child: TextFeildWidget(
-                                controller: ref
-                                    .watch(MessageProvider.messageController),
-                                hintText: 'Type a message',
-                                validator: (value) =>
-                                    ValidatorUtils.nullValidator(value),
-                                errorStyle: false,
+                      Row(
+                        children: [
+                          //* ==--==--==-- Message ~ Field --==--==--==
+                          if (!isListening)
+                            Expanded(
+                              child: Consumer(
+                                builder: (_, WidgetRef ref, __) {
+                                  return Form(
+                                    key: ref.watch(MessageProvider.formKey),
+                                    child: TextFeildWidget(
+                                      controller: ref.watch(
+                                          MessageProvider.messageController),
+                                      hintText: 'Type a message',
+                                      suffixIcon: InkWell(
+                                        onTap: () {
+                                          /// Clear message field
+                                          ref
+                                              .read(MessageProvider
+                                                  .messageController)
+                                              .clear();
+                                        },
+                                        splashColor: kTransparentColor,
+                                        child: const Icon(
+                                          CupertinoIcons.clear_circled_solid,
+                                          color: kBlack45,
+                                        ),
+                                      ),
+                                      validator: (value) =>
+                                          ValidatorUtils.nullValidator(value),
+                                      errorStyle: false,
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          if (!isListening) kWidth10,
+                          //* ==--==--==-- Send ~ Button --==--==--==
+                          if (!isListening)
+                            InkWell(
+                              onTap: () {
+                                //* -- Form State --
+                                final FormState? formState = ref
+                                    .read(MessageProvider.formKey)
+                                    .currentState;
+
+                                if (formState!.validate()) {
+                                  final String message = ref
+                                      .read(MessageProvider.messageController)
+                                      .text;
+                                  final DateTime dateTime = DateTime.now();
+
+                                  final MessageModel messageModel =
+                                      MessageModel(
+                                          message: message, dateTime: dateTime);
+
+                                  log('Message: $message');
+                                  log('Date Time: ${ConverterUtils().dateTimeFormatAmPm.format(dateTime)}');
+
+                                  //! >><<>><< Add message ~ Event >><<>><<
+                                  ref
+                                      .read(MessageProvider.messages.notifier)
+                                      .emit(MessageEvent.addMessage(
+                                          message: messageModel));
+
+                                  /// Clear message after successfully send.
+                                  ref
+                                      .read(MessageProvider.messageController)
+                                      .clear();
+                                }
+                              },
+                              child: const CircleAvatar(
+                                radius: 20,
+                                backgroundColor: kTeal400,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 2.0),
+                                  child: Icon(Icons.send_outlined,
+                                      size: 16, color: kWhite),
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
-                      kWidth10,
-                      //* ==--==--==-- Send ~ Button --==--==--==
-                      InkWell(
-                        onTap: () {
-                          //* -- Form State --
-                          final FormState? formState =
-                              ref.read(MessageProvider.formKey).currentState;
-
-                          if (formState!.validate()) {
-                            final String message = ref
-                                .read(MessageProvider.messageController)
-                                .text;
-                            final DateTime dateTime = DateTime.now();
-
-                            final MessageModel messageModel = MessageModel(
-                                message: message, dateTime: dateTime);
-
-                            log('Message: $message');
-                            log('Date Time: ${ConverterUtils().dateTimeFormatAmPm.format(dateTime)}');
-
-                            //! >><<>><< Add message ~ Event >><<>><<
-                            ref.read(MessageProvider.messages.notifier).emit(
-                                MessageEvent.addMessage(message: messageModel));
-
-                            /// Clear message after successfully send.
-                            ref.read(MessageProvider.messageController).clear();
-                          }
-                        },
-                        child: const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: kBlack45,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 2.0),
-                            child: Icon(Icons.send, size: 16, color: kWhite),
+                      kHeight20,
+                      //* ==--==--==-- Voice ~ Button --==--==--==
+                      Column(
+                        children: [
+                          AvatarGlow(
+                            animate: isListening,
+                            glowColor: kTeal,
+                            endRadius: isListening ? 70 : 30,
+                            child: InkWell(
+                              splashFactory: NoSplash.splashFactory,
+                              splashColor: kTransparentColor,
+                              highlightColor: kTransparentColor,
+                              onTap: () async {
+                                if (isListening) {
+                                  await AccessibilityUtils().stopListening(ref);
+                                } else {
+                                  await AccessibilityUtils().listen(ref);
+                                }
+                              },
+                              child: CircleAvatar(
+                                radius: 25,
+                                backgroundColor: kTeal,
+                                child: Icon(
+                                  isListening ? Icons.mic : Icons.mic_none,
+                                  size: 22,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
+                      kHeight8,
                     ],
-                  ),
-                  kHeight20,
-                  //* ==--==--==-- Voice ~ Button --==--==--==
-                  InkWell(
-                    onLongPress: () {},
-                    child: const CircleAvatar(
-                      radius: 25,
-                      backgroundColor: kTeal,
-                      child: Icon(Icons.mic, size: 22),
-                    ),
-                  ),
-                ],
+                  );
+                },
               )
             ],
           ),

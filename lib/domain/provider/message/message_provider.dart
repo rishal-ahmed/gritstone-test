@@ -9,8 +9,18 @@ class MessageProvider {
 
   //* ==--==--==--==-- Get Messages --==--==--==--==
   static final messages =
-      StateNotifierProvider<MessageNotifier, MessageState>((ref) {
+      StateNotifierProvider.autoDispose<MessageNotifier, MessageState>((ref) {
     return MessageNotifier()..emit(const MessageEvent.messages());
+  });
+
+  //* ==--==--==--==-- Is Listening --==--==--==--==
+  static final isListening = StateProvider.autoDispose<bool>((ref) {
+    return false;
+  });
+
+  //* ==--==--==--==-- Recognized Value --==--==--==--==
+  static final recognizedValue = StateProvider.autoDispose<String>((ref) {
+    return '';
   });
 
   //* ==--==--==--==-- From Key --==--==--==--==
@@ -20,7 +30,7 @@ class MessageProvider {
 
   //? ==--==--==--==-- Form Controllers --==--==--==--==
   static final messageController =
-      Provider.autoDispose<TextEditingController>((ref) {
+      StateProvider<TextEditingController>((ref) {
     return TextEditingController();
   });
 }

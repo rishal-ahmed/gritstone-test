@@ -24,8 +24,8 @@ class TextFeildWidget extends StatelessWidget {
     this.hideCounterText = false,
     this.controller,
     this.inputBorder = const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      borderSide: BorderSide(color: kTransparentColor),
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+      borderSide: BorderSide(color: kGrey),
     ),
     this.borderColor,
     this.prefixIcon,

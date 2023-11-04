@@ -5,9 +5,9 @@ import 'package:gritstone_test/core/constant/colors.dart';
 import 'package:gritstone_test/core/constant/sizes.dart';
 import 'package:gritstone_test/domain/models/message/message_model.dart';
 import 'package:gritstone_test/domain/provider/message/message_provider.dart';
+import 'package:gritstone_test/domain/utils/accessibility/accessibility_utils.dart';
 import 'package:gritstone_test/domain/utils/converter/converter_utils.dart';
 import 'package:gritstone_test/domain/utils/text/text_utils.dart';
-import 'package:gritstone_test/domain/utils/tts/tts_utils.dart';
 import 'package:gritstone_test/presentation/widgets/dialogs/alert_dialog_custom.dart';
 import 'package:gritstone_test/presentation/widgets/snackbar/snackbar.dart';
 
@@ -81,12 +81,12 @@ class MessageWidget extends ConsumerWidget {
                         .bodyMedium
                         ?.copyWith(color: kBlack87),
                   ),
-                  kHeight5,
+                  kHeight10,
                   //* =-=-=- DateTime -=-=-=
                   Text(
                     ConverterUtils().dateTimeShortAmPm.format(message.dateTime),
                     textAlign: TextAlign.end,
-                    style: TextUtils.theme(context).bodySmall?.copyWith(
+                    style: TextUtils.theme(context).labelMedium?.copyWith(
                           color: kBlack45,
                         ),
                   ),
@@ -96,7 +96,7 @@ class MessageWidget extends ConsumerWidget {
           ),
           IconButton(
             onPressed: () async {
-              await TtsUtils().startSpeak(message.message);
+              await AccessibilityUtils().startSpeak(message.message);
             },
             color: kBlack45,
             icon: const Icon(Icons.volume_up),
