@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gritstone_test/core/constant/images.dart';
 import 'package:gritstone_test/core/constant/sizes.dart';
+import 'package:gritstone_test/core/routes/routes.dart';
 import 'package:gritstone_test/domain/utils/text/text_utils.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -39,7 +40,7 @@ class ScreenSplash extends ConsumerWidget {
   Future<void> afterSplash(context) async {
     await Future.delayed(const Duration(seconds: 3));
 
-    // Navigator.pushNamedAndRemoveUntil(
-    //     context, routeHome, ModalRoute.withName(routeRoot));
+    Navigator.pushNamedAndRemoveUntil(
+        context, routeHome, ModalRoute.withName(routeRoot));
   }
 }

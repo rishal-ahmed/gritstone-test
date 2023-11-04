@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gritstone_test/core/routes/routes.dart';
+import 'package:gritstone_test/presentation/screens/home/screen_home.dart';
 import 'package:gritstone_test/presentation/screens/splash/screen_splash.dart';
 
 class RouteGenerator {
@@ -11,7 +12,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ScreenSplash());
 
       case routeHome:
-      // return MaterialPageRoute(builder: (_) => const ScreenHome());
+        return MaterialPageRoute(builder: (_) => const ScreenHome());
 
       default:
         return _errorRoute();
