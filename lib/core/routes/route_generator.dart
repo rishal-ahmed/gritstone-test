@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gritstone_test/core/routes/routes.dart';
-import 'package:gritstone_test/splash/screen_splash.dart';
+import 'package:gritstone_test/presentation/screens/splash/screen_splash.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
