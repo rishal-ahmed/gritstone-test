@@ -1,1 +1,2 @@
-const String appName = 'TG ECom';
+//* ==--==--==-- Constant Names --==--==--==
+const String appName = 'GRITSTONE';

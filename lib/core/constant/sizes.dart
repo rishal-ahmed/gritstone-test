@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gritstone_test/core/constant/colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+//*==--==--==--==-- Constant White Spaces --==--==--==--==
 const SizedBox kNone = SizedBox();
 const SizedBox kWFill = SizedBox(width: double.infinity);
 const SizedBox kHFill = SizedBox(height: double.infinity);
@@ -44,6 +45,7 @@ const SizedBox kHeight30 = SizedBox(height: 30);
 const SizedBox kHeight35 = SizedBox(height: 35);
 const SizedBox kHeight40 = SizedBox(height: 40);
 
+//*==--==--==--==-- Constant White Spaces --==--==--==--==
 final SizedBox dWidth05 = SizedBox(width: 0.5.w);
 final SizedBox dWidth1 = SizedBox(width: 1.w);
 final SizedBox dWidth1n5 = SizedBox(width: 1.5.w);
@@ -79,6 +81,7 @@ final SizedBox dHeight15 = SizedBox(height: 15.h);
 final SizedBox dHeight20 = SizedBox(height: 20.h);
 final SizedBox dHeight40 = SizedBox(height: 40.h);
 
+//*==--==--==--==-- Constant Divider --==--==--==--==
 const Divider kDividerNone = Divider(color: kColorLight4, height: 0);
 const Divider kDivider = Divider(color: kColorLight4, height: 16);
 const Divider kDivider20 = Divider(color: kColorLight4, height: 20);

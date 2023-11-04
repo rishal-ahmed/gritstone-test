@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//*===-===-===-===-===- Main Color -===-===-===-===-===
 const Color primaryColor = Color(0xFF01B2D6);
 const Color secondaryColor1 = Color(0xFFFFD5B8);
 const Color secondaryColor2 = Color(0xFFC2A6D9);
@@ -16,27 +17,32 @@ const Color kColorBorder2 = Color(0XFFD8D8D8);
 const Color kFieldFillColor = Color(0XFFF4F4F4);
 const Color kScaffoldColor = Color(0XFFFFFFFF);
 
+//*==--==--==--==--==-- Light & Dark --==--==--==--==--==
 const Color kColorDark1 = Color(0XFFFFFFFF);
 const Color kColorDark2 = Color(0XFF9EA49F);
 const Color kColorDark3 = Color(0XFF595959);
 const Color kColorDark4 = Color(0XFF000000);
-
+//*
 const Color kColorLight1 = Color(0XFF000000);
 const Color kColorLight2 = Color(0XFF4E4F4E);
 const Color kColorLight3 = Color(0XFF7A7D7A);
 const Color kColorLight4 = Color(0XFFBEC3BE);
 
+//*==--==--==--==--==-- Shimmer Color --==--==--==--==--==
 const Color kColorShimmerHighlight = Color(0xFFF5F5F5);
 const Color kColorShimmerBase = Color(0xFFE0E0E0);
 
+//*==--==--==--==--==-- Gradient Color --==--==--==--==--==
 const Color kColorGradient1 = Color(0xFF32324D);
 const Color kColorGradient2 = Color(0XFF383991);
 
+//*==--==--==--==--==-- Custom Color --==--==--==--==--==
 const Color kColorMaterialDark = Color(0xff121212);
 const Color kColorMaterialLight = Color(0XFF636363);
 const Color kColorFieldBgDark = Color(0xff121212);
 const Color kColorFieldBgLight = Color(0xff121212);
 
+//*==--==--==--==--==-- Constant Colors --==--==--==--==--==
 const Color kTransparentColor = Colors.transparent;
 const Color kWhite = Colors.white;
 const Color kBlack = Colors.black;
@@ -49,6 +55,7 @@ const Color kGrey = Colors.grey;
 const Color kBlueGrey = Colors.blueGrey;
 const Color kTeal = Colors.teal;
 
+//*==--==--==--==--==-- Constant Shaded Colors --==--==--==--==--==
 const Color kColorDim = Color(0xFF777777);
 const Color kColorDim2 = Color(0XFF888888);
 const Color kOffWhite = Color(0XFFF1F1F1);
@@ -96,25 +103,28 @@ const Color kGrey300 = Color(0xFFE0E0E0);
 const Color kTeal400 = Color(0xFF26A69A);
 const Color kBlueGrey400 = Color(0xFF78909C);
 
+//*==--==--==--==--==-- Colors for States --==--==--==--==--==
 const kColorStateInfo = Color(0XFF0075FF);
 const kColorStateSuccess = Color(0XFF6DC956);
 const kColorStateWarning = Color(0XFFFFA048);
 const kColorStateCritical = Color(0XFFEB3636);
 const kColorStateDisabled = Color(0XFF9EA49F);
 
+//*==--==--==--==--==-- Colors for Backgrounds --==--==--==--==--==
 const kColorBackground1 = Color(0XFFFFFFFF);
 const kColorBackground2 = Color(0XFFF4F4F4);
 const kColorBackground3 = Color(0XFFC0C0C0);
 const kColorBackground4 = Color(0XFF41AD49);
 
+//*==--==--==--==--==-- Colors for Widgets --==--==--==--==--==
 const klabelColorGrey = Color(0xFF616161);
 const kSnackBarIconColor = Colors.white;
+// const kColorSuccess = Color(0xFF66BB6A);
+// const kSnackBarErrorColor = Color(0xFFEF5350);
+// const kSnackBarDeleteColor = Color(0xFFEF5350);
+// const kSnackBarUpdateColor = Color(0xFF7E57C2);
 
-
-
-
-
-
+//!==--==--==--==--==-- Hex value from 100% to 0% alpha --==--==--==--==--==
 /* 
     100% — FF
     99% — FC
